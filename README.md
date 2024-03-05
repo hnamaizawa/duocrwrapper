@@ -101,7 +101,7 @@ Connections                   ttl     opn     rt1     rt5     p50     p90
 {"message":"choose one ocr engine: /clova for Naver Clova OCR Engine, /synap for Synapsoft OCR Engine","version":"1.0.0"}
 ~~~
 
-- 上記 Endpoint の後ろへ /clova を追加してアクセスすると DU OCR Wrapper 起動確認時と同じ HTTP 404 が表示されることを確認します。
+- 上記 Endpoint の後ろへ /clova を追加してアクセスすると DU OCR Wrapper 起動確認時と同じ HTTP 404 が表示されることを確認します。  
   （ここまでの手順で外部から DU OCR Wrapper へアクセス可能なことが確認できました）
 
 ~~~
@@ -120,7 +120,7 @@ NotFoundError: Not Found
     at router (C:\Users\hnamaizawa\source\repos\duocrwrapper\node_modules\express\lib\router\index.js:47:12)
 ~~~
 
-（参考）ngrok サイトでドメインを固定する設定(無料)を実施すると以下のように ngrok 起動時にドメイン名が指定でき、毎回同じ URL でアクセスできるようになります。
+（参考）ngrok サイトでドメインを固定する設定(無料)を実施すると以下のように ngrok 起動時にドメイン名が指定可能となり、毎回同じ URL でアクセスできるようになります。
 
 ~~~
 ngrok http --domain=aaaaaaa-bbbbbbb-cccc.ngrok-free.app 3000
