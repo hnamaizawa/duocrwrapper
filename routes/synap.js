@@ -20,7 +20,7 @@ const detect_angle = function( rotation) {
 
 nconf.file({file: './routes/config.json'});
 
-/* OCR Endpoint 기본 정보 */
+/* OCR Endpoint 基本情報 */
 router.get('/info/model', function(req,res,next) {
     const info = {
             accents:false,
@@ -150,7 +150,7 @@ router.post('/', function(req, res, next) {
         }
 
         boxes.forEach( p => {
-            //word 중에 : 에 있다면 
+            //word の中に : が含まれている場合
             let idxcol = p[5].indexOf(":");
             if( idxcol  > 0 && p[5].length-1 > idxcol) {
                 //let wlen = p[5].length;
@@ -164,7 +164,7 @@ router.post('/', function(req, res, next) {
                 let llen = ((multibytepos+1) * Math.abs( p[0][0]-p[1][0]))/wlen; 
                 //console.log(`org: ${p[5]} >>>  ${p[5].substring(0, idxcol+1)}  <->  ${p[5].substring(idxcol+1)}`);
                 //console.log(`left len: ${llen} ,right len:  ${Math.abs(p[1][0]-p[0][0])-llen}`);
-                // : 기준 left (:포함)
+                // : 基準 left (:を含む)
                 du_resp.responses[0].textAnnotations.push ({
                     description: p[5].substring(0, idxcol+1),
                     score: p[4],
@@ -178,7 +178,7 @@ router.post('/', function(req, res, next) {
                         ]
                     }
                 });
-                // : 기준 right (:제외)
+                // : 基準 right (:を除く)
                 du_resp.responses[0].textAnnotations.push ({
                     description: p[5].substring(idxcol+1),
                     score: p[4],
@@ -209,7 +209,7 @@ router.post('/', function(req, res, next) {
              }
             min_score =  Math.min( min_score, p[4]);
         })
-        //가장 낮은 score 값을 계산 
+        // 最も低いscore値を計算
         du_resp.responses[0].score = min_score;
         res.send( du_resp);
 

@@ -10,7 +10,7 @@ nconf.file( './routes/config.json');
 
 var hints = JSON.parse(fs.readFileSync("./routes/qanda_hints.json"))
 const rot_val = [0, 270, 180, 90];
-/* OCR Endpoint 기본 정보 */
+/* OCR Endpoint 基本情報 */
 router.get('/info/model', function(req,res,next) {
     const info = {
             accents:false,
@@ -78,7 +78,7 @@ router.post('/', function(req, res, next) {
     {
         formdata['hints'] = JSON.stringify(hints.hints)
     }
-    //Document Manager에서 호출 시 
+    // Document Managerrからの呼び出し時
     if( req.headers['traceparent']) 
     {
         formdata['context'] = req.headers['traceparent'];
@@ -89,7 +89,7 @@ router.post('/', function(req, res, next) {
         method: 'POST',
         formData: formdata
     }
-    // Digitize Document 에서 호출 
+    // Digitize Documentからの呼び出し時
     request.post( options, function(err, resp) {
         fs.unlink( __dirname + '/' + filename + '.img', (err2) => {
             if( err2)
@@ -117,14 +117,14 @@ router.post('/', function(req, res, next) {
         var du_resp = {
             responses: [
                 {
-                    angle: qanda.angle, // 나중에 skew값을 계산해서 업데이트 함 
+                    angle: qanda.angle, // 後でskew値を計算して更新する 
                     textAnnotations: [
                         {
                             description : qanda.text,
                             score: 0,
                             type: 'text',
                             image_hash: hash,
-                            boundingPoly : { // 응답값이 해당 내용이 없어 이미지의 크기정보를 이용해서 구성 
+                            boundingPoly : { // 応答値が該当する内容がないため、画像のサイズ情報を利用して構成する 
                                 vertices: [
                                     {x: 0, y: 0},
                                     {x: qanda.width, y: 0},
@@ -138,7 +138,7 @@ router.post('/', function(req, res, next) {
             ]
         }
         var desc;
-        var skew = [0,0,0,0];// { 0, 90, 180, 270 } 회전됨 문서
+        var skew = [0,0,0,0];// { 0, 90, 180, 270 } 回転した文書
         qanda.word_boxes.forEach( p => {
             du_resp.responses[0].textAnnotations.push ({
                 description: p.text, //p.text.replace(/[^\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318FA-Za-z0-9,\.\-]/gi,""),
@@ -156,7 +156,7 @@ router.post('/', function(req, res, next) {
             score_sum += parseFloat(parseFloat(p.confidence).toFixed(3));
         })
         //du_resp.responses[0].description = qanda.text;
-        //평균 score 값을 계산 
+        // 平均score値を計算
         du_resp.responses[0].score = score_sum / du_resp.responses[0].textAnnotations.length;
         res.send( du_resp);
 

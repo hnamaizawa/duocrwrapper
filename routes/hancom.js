@@ -20,7 +20,7 @@ const detect_angle = function( rotation) {
 
 nconf.file({file: './routes/config.json'});
 
-/* OCR Endpoint 기본 정보 */
+/* OCR Endpoint 基本情報 */
 router.get('/info/model', function(req,res,next) {
     const info = {
             accents:false,
@@ -137,7 +137,7 @@ router.post('/', function(req, res, next) {
             });
             min_score = Math.min( min_score, parseFloat(p.score));
         })
-        //최소 score 값을 계산 
+        // 最小score値を計算
         du_resp.responses[0].score = min_score;
         res.send( du_resp);
 

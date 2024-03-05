@@ -21,7 +21,7 @@ const detect_angle = function( rotation) {
 
 nconf.file( {file: './routes/config.json'});
 
-/* OCR Endpoint 기본 정보 */
+/* OCR Endpoint 基本情報 */
 router.get('/info/model', function(req,res,next) {
   const info = {
         accents:false,
@@ -113,9 +113,9 @@ router.post('/', function(req, res, next) {
               score_sum += w.confidence;
           });
       });
-      //전체 text 값을 제공하지 않아 words의 값을 전부 합함. 
+      // 全体のtextの値を提供していないため、wordsの値を全て合算します
       du_resp.responses[0].description = full_text;
-      //평균 score 값을 계산 
+      // 平均score値を計算
       du_resp.responses[0].score = score_sum / du_resp.responses[0].textAnnotations.length;
       res.send( du_resp);
   });

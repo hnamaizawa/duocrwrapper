@@ -10,7 +10,7 @@ const nconf = require('nconf');
 nconf.file( './routes/config.json');
 
 const rot_val = [0, 270, 180, 90];
-/* OCR Endpoint 기본 정보 */
+/* OCR Endpoint 基本情報 */
 router.get('/info/model', function(req,res,next) {
     const info = {
             accents:false,
@@ -95,14 +95,14 @@ router.post('/', function(req, res, next) {
         var du_resp = {
             responses: [
                 {
-                    angle: 0, // 나중에 skew값을 계산해서 업데이트 함 
+                    angle: 0, // 後でskew値を計算して更新する 
                     textAnnotations: [
                         {
                             description : upstage.pages[0].text,
                             score: upstage.confidence,
                             type: 'text',
                             image_hash: hash,
-                            boundingPoly : { // 응답값이 해당 내용이 없어 이미지의 크기정보를 이용해서 구성 
+                            boundingPoly : { // 応答値が該当する内容がないため、画像のサイズ情報を利用して構成する 
                                 vertices: [
                                     {x: 0, y: 0},
                                     {x: upstage.pages[0].width, y: 0},
@@ -116,14 +116,14 @@ router.post('/', function(req, res, next) {
             ]
         }
         var desc;
-        var skew = [0,0,0,0];// { 0, 90, 180, 270 } 회전됨 문서
+        var skew = [0,0,0,0];// { 0, 90, 180, 270 } 回転した文書
         var rotation_check_count = 20;
         upstage.pages[0].words.forEach( p => {
             du_resp.responses[0].textAnnotations.push ({
                 description: p.text,
                 score: p.confidence,
                 type: 'text',
-                boundingPoly: p.boundingBox //구성이 동일해서 그대로 사용 
+                boundingPoly: p.boundingBox // 構成が同じなのでそのまま使用 
             });
             //desc += p.text;
 
