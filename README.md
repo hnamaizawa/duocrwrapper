@@ -8,6 +8,12 @@
 
 また、このプロジェクトに貢献してくださったすべての協力者に心から感謝いたします。
 
+This project was made possible by the support and encouragement of many people. In particular, we would like to express our deepest gratitude to the following people
+
+- **Kim**-san for providing us with various information about the [project](https://github.com/javaos74/duocrwrapper) we are referencing. Thank you very much.
+
+We would also like to extend our sincere thanks to all the contributors who have worked on this project.
+
 ## 前提
 - Visual Studio を利用します（Visual Studio Codeではありません）
   - ローカルで以下のようにクローンを実施しておく、もしくは Visual Studio のリポジトリクローンメニューより以下の URL を指定してクローンを実施しておきます。
