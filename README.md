@@ -14,6 +14,14 @@ This project was made possible by the support and encouragement of many people. 
 
 We would also like to extend our sincere thanks to all the contributors who have worked on this project.
 
+---
+
+## 最新の更新情報
+
+- **Cogent Labs SmartRead 対応版のリリース (2024-06-07)**: Cogent Labs SmartRead へ対応したモジュールを追加しました。SmartRead の全文読み取りOCR機能を用いた連携が利用可能となりました。詳細は[変更ログ](https://github.com/hnamaizawa/duocrwrapper/commit/0acb52424bf194a33b53dc3de0d7584751f8ce41)をご覧ください。
+
+---
+
 ## 前提
 - Visual Studio を利用します（Visual Studio Codeではありません）
   - ローカルで以下のようにクローンを実施しておく、もしくは Visual Studio のリポジトリクローンメニューより以下の URL を指定してクローンを実施しておきます。
