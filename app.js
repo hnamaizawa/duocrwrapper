@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 var smartreadRouter = require('./routes/smartread.js');
 var msRouter = require('./routes/msread.js');
+var elocrRouter = require('./routes/el_ocr.js');
+var mscloudRouter = require('./routes/msread_cloud.js');
 var clovaRouter = require('./routes/clova.js');
 var indexRouter = require('./routes/index.js');
 var app = express();
@@ -23,6 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/smartread', smartreadRouter);
 app.use('/ms', msRouter);
+app.use('/el_ocr', elocrRouter);
+app.use('/mscloud', mscloudRouter);
 app.use('/clova', clovaRouter);
 
 // catch 404 and forward to error handler

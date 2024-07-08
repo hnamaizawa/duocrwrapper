@@ -3,9 +3,15 @@
     "endpoint": "https://api.smartread.jp/v3"
   },
   "msread": {
-    "endpoint": "http://msread.koreacentral.cloudapp.azure.com:5000"
+    "endpoint": "http://localhost:5000"
+  },
+  "el_ocr": {
+    "endpoint": "https://du.uipath.com/extended-ocr"
+  },
+  "msread_cloud": {
+    "endpoint": "Azure AI Document Intelligence のエンドポイントを指定します"
   },
   "clova": {
-    "endpoint" : "https://412baztid8.apigw.ntruss.com/custom/v1/83/962db625f801e2f12fd4eb7ce08994255f56d8a27639ea5c30e23cac89b10a86/general"
+    "endpoint": "https://412baztid8.apigw.ntruss.com/custom/v1/83/962db625f801e2f12fd4eb7ce08994255f56d8a27639ea5c30e23cac89b10a86/general"
   }
 }
