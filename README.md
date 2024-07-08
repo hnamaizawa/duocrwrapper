@@ -18,6 +18,8 @@ We would also like to extend our sincere thanks to all the contributors who have
 
 ## 最新の更新情報
 
+- **UiPath Extended Language OCR と Azure AI Document Intelligence OCR 対応版のリリース (2024-07-08)**: UiPath Extended Language OCR モジュールでは EL OCR 読取結果を単語レベルで認識する処理を実装しています。Azure AI Document Intelligence OCR モジュールでは AI Document Intelligence API（Computer Vision API ではありません）を利用しています。座標が少しずれるため簡易的なサンプルとお考えください。詳細は[変更ログ](https://github.com/hnamaizawa/duocrwrapper/commit/cb0bb298f9a9dfab0d793c06f7df3847a621848e)をご覧ください。
+
 - **Cogent Labs SmartRead 対応版のリリース (2024-06-07)**: Cogent Labs SmartRead へ対応したモジュールを追加しました。SmartRead の全文読み取りOCR機能を用いた連携が利用可能となりました。詳細は[変更ログ](https://github.com/hnamaizawa/duocrwrapper/commit/0acb52424bf194a33b53dc3de0d7584751f8ce41)をご覧ください。
 
 ---
