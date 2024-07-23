@@ -152,7 +152,21 @@ router.post('/', async function (req, res, next) {
 
                 let combinedWords = [];
 
-                const isJapaneseCharacterOrDate = (str) => {                    
+                const isJapaneseCharacterOrDate = (str) => {
+                    // ここへ単語として結合したくない文字列パターンの正規表現を指定します
+                    // Specify here a regular expression for a string pattern that you do not want to combine as a word
+                    const excludePatterns = [
+                        /^社員番号\s{0,10}\d{6}$/, // 「社員番号」+ 空白0～10文字 + 数字6桁
+                        /^自\s{0,10}\d{2}$/,       // 「自」+ 空白0～10文字 + 数字2桁
+                        /^至\s{0,10}\d{2}$/        // 「至」+ 空白0～10文字 + 数字2桁
+                    ];
+                    // 除外パターンにマッチする場合は false を返す
+                    // Returns false if the exclusion pattern is matched
+                    for (const pattern of excludePatterns) {
+                        if (pattern.test(str)) {
+                            return false;
+                        }
+                    }
                     return /^[\d]{4}年$/.test(str) || /^[\d]{2}(月|日)$/.test(str) || /[\u3000-\u30FF\u4E00-\u9FFF\uFF66-\uFF9F]/.test(str) || /^[\d]{4}$/.test(str);
                 };
 
@@ -166,7 +180,8 @@ router.post('/', async function (req, res, next) {
                         // 最後の文字が日本語、または「年」「月」「日」の前に4ケタまたは2ケタの数字がある場合
                         // If the last character is Japanese or there are 4 digits or 2 digits before "year", "month", or "day".
                         if (lastWord &&
-                            (isJapaneseCharacterOrDate(lastWord.description))) {
+                            (isJapaneseCharacterOrDate(lastWord.description) &&                     // 最後の文字が日本語、または日付の確認（Last character is Japanese or date confirmation）
+                             isJapaneseCharacterOrDate(lastWord.description + currentCharacter))) { // 新しい文字を結合しても除外パターンにマッチしないかの確認（Checking that the new character concatenation does not match the exclusion pattern）
 
                             const d = word.boundingBox[0] - lastWord.boundingPoly.vertices[1].x;
                             const avgHeight = (lastWord.boundingPoly.vertices[2].y - lastWord.boundingPoly.vertices[1].y + word.boundingBox[5] - word.boundingBox[3]) / 2;
@@ -220,9 +235,9 @@ router.post('/', async function (req, res, next) {
                     });
                 });
 
-                // 結合したテキストをTokenaizerで意味のある単語へ分割し、分割した単語で名詞が続くようなら再度結合する（住所などをより大きなテキストとして結合するため）
+                // 結合したテキストをTokenaizerで意味のある単語へ分割し、分割した単語で名詞などが続くようなら再度結合する（住所などをより大きなテキストとして結合するため）
                 // この時、splitCustomTokens関数から戻された単語にマッチするように領域も文字数で均等分割しているがフォントなどで位置情報が多少ずれる場合がある
-                // The combined text is split into meaningful words using Tokenaizer, and if the split words are followed by nouns, they are combined again (to combine addresses, etc. as larger text).
+                // The combined text is split into meaningful words using Tokenaizer, and if the split words are followed by nouns, etc., they are combined again (to combine addresses, etc. as larger text).
                 // At this time, the area is equally divided by the number of characters to match the words returned from the splitCustomTokens function, but the positional information may shift slightly due to fonts, etc. 
                 let finalWords = [];
                 combinedWords.forEach(word => {
@@ -285,14 +300,23 @@ router.post('/', async function (req, res, next) {
 const splitCustomTokens = (content, tokenizer) => {
 
     const defaultTokens = tokenizer.tokenize(content);
+
+//console.log(`content: ${content}`);
+//console.log('');
+//defaultTokens.forEach(token => {
+//   console.log(`tokenize surface form:   ${token.surface_form}`);
+//   console.log(`tokenize part of speech: ${token.pos}`);
+//   console.log('------');
+//});
+
     const combinedTokens = [];
     let currentToken = null;
 
     defaultTokens.forEach(token => {
         if (currentToken) {
             // 連続するトークンを結合するカスタムロジック
-            // 名詞が続くようなら再度結合する（住所などをより大きなテキストとして結合するため）
-            // Re-join nouns if they follow (to join addresses, etc. as larger text)
+            // 名詞などが続くようなら再度結合する（住所などをより大きなテキストとして結合するため）
+            // Re-join nouns, etc. if they follow (to join addresses, etc. as larger text)
             if (isNounLike(currentToken.surface_form) && isNounLike(token.surface_form)) {
                 currentToken.surface_form += token.surface_form;
             } else {
@@ -307,6 +331,11 @@ const splitCustomTokens = (content, tokenizer) => {
     if (currentToken) {
         combinedTokens.push(currentToken.surface_form);
     }
+
+//combinedTokens.forEach(token => {
+//    console.log(`Combined Tokens result # ${token}`);
+//});
+//console.log('');
 
     return combinedTokens;
 };
