@@ -1,4 +1,8 @@
 {
+  "aiinside": {
+    "endpoint": "AI inside のエンドポイントを指定します",
+    "apikey": "AI inside の API Key を指定します"
+  },
   "smartread": {
     "endpoint": "https://api.smartread.jp/v3"
   },

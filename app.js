@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var aiinsideRouter = require('./routes/aiinside.js');
 var smartreadRouter = require('./routes/smartread.js');
 var msRouter = require('./routes/msread.js');
 var elocrRouter = require('./routes/el_ocr.js');
@@ -23,6 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/aiinside', aiinsideRouter);
 app.use('/smartread', smartreadRouter);
 app.use('/ms', msRouter);
 app.use('/el_ocr', elocrRouter);
