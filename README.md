@@ -18,7 +18,7 @@ We would also like to extend our sincere thanks to all the contributors who have
 
 ## 最新の更新情報
 
-- **AI inside DX Suite OCR 対応版のリリース (2024-07-25)**: AI inside DX Suite OCR へ対応したモジュールを追加しました。AI inside DX Suite OCR の API-Key は100文字以上のために Document Manager 上で指定できないため、config.json で指定するようにしました。詳細は[変更ログ](https://github.com/hnamaizawa/duocrwrapper/commit/aa9570763d9f6929d757ad2fd4c7c2a1db178e35)をご覧ください。
+- **AI inside DX Suite OCR 対応版のリリース (2024-07-25)**: AI inside DX Suite OCR へ対応したモジュールを追加しました。AI inside DX Suite OCR の API-Key は100文字以上のために Document Manager 上で指定できないため、[config.json](https://github.com/hnamaizawa/duocrwrapper/blob/main/routes/config.json) で指定するようにしました。詳細は[変更ログ](https://github.com/hnamaizawa/duocrwrapper/commit/aa9570763d9f6929d757ad2fd4c7c2a1db178e35)をご覧ください。
 
 - **UiPath Extended Language OCR と Azure AI Document Intelligence OCR 対応版のリリース (2024-07-08)**: UiPath Extended Language OCR モジュールでは EL OCR 読取結果を単語レベルで認識する処理を実装しています。Azure AI Document Intelligence OCR モジュールでは AI Document Intelligence API（Computer Vision API ではありません）を利用しています。座標が少しずれるため簡易的なサンプルとお考えください。詳細は[変更ログ](https://github.com/hnamaizawa/duocrwrapper/commit/cb0bb298f9a9dfab0d793c06f7df3847a621848e)をご覧ください。
 
