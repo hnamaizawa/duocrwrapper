@@ -39,6 +39,7 @@ router.get('/config', function (req, res, next) {
     const cfg = {
         el_ocr: {
             endpoint: nconf.get("el_ocr:endpoint"),
+            apikei: nconf.get("el_ocr:apikey" || ''),
             lang: nconf.get('lang') || 'ja'
         }
     };
@@ -50,6 +51,11 @@ router.put('/config', function (req, res, next) {
     if (req.body.el_ocr && req.body.el_ocr.endpoint) {
         nconf.set("el_ocr:endpoint", req.body.el_ocr.endpoint);
         nconf.save();
+        _changed = 1;
+    }
+    if (req.body.el_ocr && req.body.el_ocr.apikey) {
+        nconf.set("el_ocr:apikey", req.body.el_ocr.apikey);
+        nconf.save()
         _changed = 1;
     }
     if (req.body.el_ocr && req.body.el_ocr.lang) {
@@ -76,7 +82,7 @@ router.post('/', async function (req, res, next) {
         url: ELOCR_endpoint + "/vision/v3.2/read/analyze",
         headers: {
             'Content-Type': 'application/octet-stream',
-            'x-uipath-license': process.env.ELOCR_API_KEY || req.headers['x-uipath-license']
+            'x-uipath-license': process.env.ELOCR_API_KEY || nconf.get("el_ocr:apikey")
         },
         data: buff
     };

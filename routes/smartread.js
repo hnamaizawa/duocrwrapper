@@ -30,6 +30,7 @@ router.get('/config', function(req,res,next) {
     const cfg = {
         smartread : {
             endpoint: nconf.get("smartread:endpoint"),
+            apikei: nconf.get("smartread:apikey" || ''),
             lang: nconf.get('lang') || 'ja'
         }
     }
@@ -44,7 +45,12 @@ router.put('/config', function(req,res,next) {
         nconf.save()
         _changed = 1;
     }
-    if (req.body.smartread && req.body.smartread.lang )
+    if (req.body.smartread && req.body.smartread.apikey) {
+        nconf.set("smartread:apikey", req.body.smartread.apikey);
+        nconf.save()
+        _changed = 1;
+    }
+    if (req.body.smartread && req.body.smartread.lang)
     {
         nconf.set("smartread:lang", req.body.smartread.lang);
         nconf.save()
@@ -63,7 +69,7 @@ router.put('/config', function(req,res,next) {
 // メイン処理（DU から https://<DU OCR Wrapper hostname>/ として呼び出される想定）
 router.post('/', async (req, res) => {
     const apiUrl = nconf.get("smartread:endpoint");
-    const apiKey = req.headers['x-uipath-license'];
+    const apiKey = nconf.get("smartread:apikey");
 
     try {
         const client = axios.create({

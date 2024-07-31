@@ -28,6 +28,7 @@ router.get('/config', function (req, res, next) {
     const cfg = {
         msread_cloud: {
             endpoint: nconf.get("msread_cloud:endpoint"),
+            apikei: nconf.get("msread_cloud:apikey" || ''),
             lang: nconf.get('lang') || 'ja'
         }
     };
@@ -39,6 +40,11 @@ router.put('/config', function (req, res, next) {
     if (req.body.msread_cloud && req.body.msread_cloud.endpoint) {
         nconf.set("msread_cloud:endpoint", req.body.msread_cloud.endpoint);
         nconf.save();
+        _changed = 1;
+    }   
+    if (req.body.msread_cloud && req.body.msread_cloud.apikey) {
+        nconf.set("msread_cloud:apikey", req.body.msread_cloud.apikey);
+        nconf.save()
         _changed = 1;
     }
     if (req.body.msread_cloud && req.body.msread_cloud.lang) {
@@ -56,7 +62,7 @@ router.put('/config', function (req, res, next) {
 // メイン処理（DU から https://<DU OCR Wrapper hostname>/ として呼び出される想定）
 router.post('/', async (req, res) => {
     const apiUrl = nconf.get("msread_cloud:endpoint");
-    const apiKey = req.headers['x-uipath-license'];
+    const apiKey = nconf.get("msread_cloud:apikey");
     
     try {
 //        console.log(`apiURL # ${apiUrl} : apiKey # ${apiKey}`);

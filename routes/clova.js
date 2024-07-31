@@ -27,6 +27,7 @@ router.get('/config', function(req,res,next) {
     const cfg = {
         clova : {
             endpoint: nconf.get("clova:endpoint"),
+            apikei: nconf.get("clova:apikey" || ''),
             lang: nconf.get('lang') || 'ko,ja'
         }
     }
@@ -41,6 +42,11 @@ router.put('/config', function(req,res,next) {
         nconf.save()
         _changed = 1;
         
+    }
+    if (req.body.clova && req.body.clova.apikey) {
+        nconf.set("clova:apikey", req.body.clova.apikey);
+        nconf.save()
+        _changed = 1;
     }
     if( req.body.clova && req.body.clova.lang )
     {
@@ -93,7 +99,7 @@ router.post('/', function(req, res, next) {
         formData: formdata,
 //        json: req_msg,
         headers: {
-            'X-OCR-SECRET': req.headers['x-uipath-license'],
+            'X-OCR-SECRET': nconf.get("clova:apikey"),
 //            'Content-Type': 'application/json'
             'Content-Type': 'multipart/form-data'
             }

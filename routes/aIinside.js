@@ -45,7 +45,7 @@ router.put('/config', function(req,res,next) {
         nconf.save()
         _changed = 1;
     }
-    if (req.body.aiinside && req.body.aiinside.lang) {
+    if (req.body.aiinside && req.body.aiinside.apikey) {
         nconf.set("aiinside:apikey", req.body.aiinside.apikey);
         nconf.save()
         _changed = 1;

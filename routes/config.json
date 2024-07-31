@@ -4,18 +4,23 @@
     "apikey": "AI inside の API Key を指定します"
   },
   "smartread": {
-    "endpoint": "https://api.smartread.jp/v3"
+    "endpoint": "https://api.smartread.jp/v3",
+    "apikey": "Cogent Labs の API Key を指定します"
   },
   "msread": {
-    "endpoint": "http://localhost:5000"
+    "endpoint": "http://localhost:5000",
+    "apikey": ""
   },
   "el_ocr": {
-    "endpoint": "https://du.uipath.com/extended-ocr"
+    "endpoint": "https://du.uipath.com/extended-ocr",
+    "apikey": "DU の API Key を指定します"
   },
   "msread_cloud": {
-    "endpoint": "Azure AI Document Intelligence のエンドポイントを指定します"
+    "endpoint": "Azure AI Document Intelligence のエンドポイントを指定します",
+    "apikey": "Azure AI Document Intelligence の API Key を指定します"
   },
   "clova": {
-    "endpoint": "https://412baztid8.apigw.ntruss.com/custom/v1/83/962db625f801e2f12fd4eb7ce08994255f56d8a27639ea5c30e23cac89b10a86/general"
+    "endpoint": "https://412baztid8.apigw.ntruss.com/custom/v1/83/962db625f801e2f12fd4eb7ce08994255f56d8a27639ea5c30e23cac89b10a86/general",
+    "apikey": "LINE WORKS Clova OCR の Secret(API Key) を指定します"
   }
 }
